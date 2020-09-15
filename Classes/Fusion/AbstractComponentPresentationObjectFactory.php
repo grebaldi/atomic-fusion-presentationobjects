@@ -51,6 +51,12 @@ abstract class AbstractComponentPresentationObjectFactory implements ComponentPr
      */
     protected $nodeTypeConstraintFactory;
 
+    /**
+     * @param TraversableNodeInterface $node
+     * @param PresentationObjectComponentImplementation $fusionObject
+     * @return callable
+     * @deprecated 2.0
+     */
     final protected function createWrapper(TraversableNodeInterface $node, PresentationObjectComponentImplementation $fusionObject): callable
     {
         $wrappingService = $this->contentElementWrappingService;
@@ -60,6 +66,13 @@ abstract class AbstractComponentPresentationObjectFactory implements ComponentPr
         };
     }
 
+    /**
+     * @param TraversableNodeInterface $node
+     * @param string $propertyName
+     * @param boolean $block
+     * @return string
+     * @deprecated 2.0
+     */
     final protected function getEditableProperty(TraversableNodeInterface $node, string $propertyName, bool $block = false): string
     {
         return $this->contentElementEditableService->wrapContentProperty(
@@ -71,9 +84,24 @@ abstract class AbstractComponentPresentationObjectFactory implements ComponentPr
         );
     }
 
+    /**
+     * @param TraversableNodeInterface $parentNode
+     * @param string $nodeTypeFilterString
+     * @return TraversableNodes
+     * @deprecated 2.0
+     */
     final protected function findChildNodesByNodeTypeFilterString(TraversableNodeInterface $parentNode, string $nodeTypeFilterString): TraversableNodes
     {
         return $parentNode->findChildNodes($this->nodeTypeConstraintFactory->parseFilterString($nodeTypeFilterString));
+    }
+
+    /**
+     * @param TraversableNodeInterface $node
+     * @return FluentContentApi
+     */
+    final protected function content(TraversableNodeInterface $node): FluentContentApi
+    {
+        return new FluentContentApi($node, $this->contentElementEditableService, $this->contentElementWrappingService);
     }
 
     /**
