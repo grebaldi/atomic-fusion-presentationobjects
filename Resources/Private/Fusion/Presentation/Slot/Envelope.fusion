@@ -1,0 +1,8 @@
+prototype(PackageFactory.AtomicFusion.PresentationObjects:Envelope) < prototype(PackageFactory.AtomicFusion.PresentationObjects:PresentationObjectComponent) {
+    @presentationObjectInterface = 'PackageFactory\\AtomicFusion\\PresentationObjects\\Presentation\\Slot\\EnvelopeInterface'
+
+    renderer = Neos.Fusion:Renderer {
+        type = ${presentationObject.targetPrototypeName}
+        element.presentationObject = ${presentationObject.presentationObject}
+    }
+}
